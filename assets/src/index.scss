@@ -1,0 +1,121 @@
+/**
+ * WP Pause Admin Styles
+ *
+ * @package PauseWP
+ */
+
+// Variables
+$primary-color: #2271b1;
+$success-color: #00a32a;
+$error-color: #d63638;
+$border-color: #c3c4c7;
+$bg-light: #f0f0f1;
+
+// Admin wrapper
+.pausewp-admin {
+    max-width: 800px;
+    margin: 20px 0;
+
+    // Header
+    &__header {
+        margin-bottom: 24px;
+
+        h1 {
+            font-size: 23px;
+            font-weight: 400;
+            margin: 0 0 8px;
+            padding: 0;
+            line-height: 1.3;
+        }
+    }
+
+    &__description {
+        color: #646970;
+        font-size: 13px;
+        margin: 0;
+    }
+
+    // Cards
+    &__card {
+        margin-bottom: 16px;
+
+        .components-card__header {
+            h2 {
+                font-size: 14px;
+                font-weight: 600;
+                margin: 0;
+            }
+        }
+
+        .components-card__body {
+            padding: 16px;
+
+            // Space between form fields
+            .components-base-control {
+                margin-bottom: 16px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    // Actions bar
+    &__actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: 1px solid $border-color;
+    }
+}
+
+// Loading state
+.pausewp-loading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 20px;
+    color: #646970;
+
+    .components-spinner {
+        margin: 0;
+    }
+}
+
+// Notice adjustments
+.pausewp-admin {
+    .components-notice {
+        margin: 0 0 16px;
+    }
+}
+
+// Toggle control enhancements
+.pausewp-admin {
+    .components-toggle-control {
+        .components-base-control__help {
+            margin-top: 4px;
+        }
+    }
+}
+
+// Responsive
+@media screen and (max-width: 782px) {
+    .pausewp-admin {
+        margin: 10px 0;
+
+        &__header h1 {
+            font-size: 20px;
+        }
+
+        &__actions {
+            flex-direction: column;
+
+            .components-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    }
+}

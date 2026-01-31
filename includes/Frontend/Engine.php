@@ -112,14 +112,26 @@ final class Engine {
 		// Set Retry-After header (1 hour).
 		header( 'Retry-After: 3600' );
 
-		// Simple die message for now - will be replaced with template in Task 6.
-		wp_die(
-			esc_html__( 'Maintenance Mode Active - Site is temporarily unavailable.', 'pausewp' ),
-			esc_html__( 'Maintenance', 'pausewp' ),
-			[
-				'response'  => 503,
-				'back_link' => false,
-			]
-		);
+		// Get settings to pass to template.
+		$settings = get_option( 'pausewp_settings', [] );
+
+		// Load the maintenance template.
+		$template_path = PAUSEWP_PATH . 'templates/maintenance.php';
+
+		if ( file_exists( $template_path ) ) {
+			include $template_path;
+		} else {
+			// Fallback if template is missing.
+			wp_die(
+				esc_html__( 'Maintenance Mode Active - Site is temporarily unavailable.', 'pausewp' ),
+				esc_html__( 'Maintenance', 'pausewp' ),
+				[
+					'response'  => 503,
+					'back_link' => false,
+				]
+			);
+		}
+
+		exit;
 	}
 }

@@ -17,6 +17,7 @@ import {
     Button,
     Spinner,
     Notice,
+    BaseControl,
 } from '@wordpress/components';
 
 /**
@@ -28,6 +29,7 @@ const App = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
     const [notice, setNotice] = useState(null);
+    const [logoPreview, setLogoPreview] = useState(null);
 
     // Fetch settings on mount
     useEffect(() => {
@@ -42,6 +44,11 @@ const App = () => {
             setIsLoading(true);
             const data = await apiFetch({ path: '/pausewp/v1/settings' });
             setSettings(data);
+
+            // Fetch logo preview if exists
+            if (data.logo_id) {
+                fetchLogoPreview(data.logo_id);
+            }
         } catch (error) {
             setNotice({
                 status: 'error',
@@ -50,6 +57,68 @@ const App = () => {
         } finally {
             setIsLoading(false);
         }
+    };
+
+    /**
+     * Fetch logo preview URL from attachment ID
+     */
+    const fetchLogoPreview = async (attachmentId) => {
+        try {
+            const media = await apiFetch({ path: `/wp/v2/media/${attachmentId}` });
+            if (media?.source_url) {
+                setLogoPreview(media.source_url);
+            }
+        } catch (error) {
+            console.error('Failed to fetch logo:', error);
+        }
+    };
+
+    /**
+     * Handle logo selection from media frame
+     */
+    const handleLogoSelect = (media) => {
+        updateSetting('logo_id', media.id);
+        setLogoPreview(media.url);
+    };
+
+    /**
+     * Handle logo removal
+     */
+    const handleLogoRemove = () => {
+        updateSetting('logo_id', 0);
+        setLogoPreview(null);
+    };
+
+    /**
+     * Open WordPress media frame
+     */
+    const openMediaFrame = () => {
+        // Check if wp.media exists
+        if (typeof wp === 'undefined' || !wp.media) {
+            console.error('WordPress media library not available');
+            return;
+        }
+
+        // Create media frame
+        const frame = wp.media({
+            title: __('Select Logo', 'pausewp'),
+            button: {
+                text: __('Use this image', 'pausewp'),
+            },
+            multiple: false,
+            library: {
+                type: 'image',
+            },
+        });
+
+        // Handle selection
+        frame.on('select', () => {
+            const attachment = frame.state().get('selection').first().toJSON();
+            handleLogoSelect(attachment);
+        });
+
+        // Open the frame
+        frame.open();
     };
 
     /**
@@ -152,6 +221,43 @@ const App = () => {
                     <h2>{__('Content Settings', 'pausewp')}</h2>
                 </CardHeader>
                 <CardBody>
+                    <BaseControl
+                        label={__('Logo', 'pausewp')}
+                        help={__('Upload a logo to display on the maintenance page.', 'pausewp')}
+                        className="pausewp-logo-upload"
+                    >
+                        <div className="pausewp-logo-upload__container">
+                            {logoPreview && (
+                                <div className="pausewp-logo-upload__preview">
+                                    <img src={logoPreview} alt={__('Logo preview', 'pausewp')} />
+                                </div>
+                            )}
+                            <div className="pausewp-logo-upload__buttons">
+                                <Button variant="secondary" onClick={openMediaFrame}>
+                                    {settings.logo_id
+                                        ? __('Replace Logo', 'pausewp')
+                                        : __('Upload Logo', 'pausewp')}
+                                </Button>
+                                {settings.logo_id > 0 && (
+                                    <Button
+                                        variant="tertiary"
+                                        isDestructive
+                                        onClick={handleLogoRemove}
+                                    >
+                                        {__('Remove', 'pausewp')}
+                                    </Button>
+                                )}
+                            </div>
+                        </div>
+                    </BaseControl>
+
+                    <TextControl
+                        label={__('Logo Alt Text', 'pausewp')}
+                        value={settings.logo_alt || ''}
+                        onChange={(value) => updateSetting('logo_alt', value)}
+                        help={__('Alternative text for accessibility.', 'pausewp')}
+                    />
+
                     <TextControl
                         label={__('Heading', 'pausewp')}
                         value={settings.heading || ''}

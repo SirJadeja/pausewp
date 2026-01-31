@@ -124,6 +124,9 @@ final class Settings_Page {
 		// Enqueue WordPress components styles.
 		wp_enqueue_style( 'wp-components' );
 
+		// Enqueue media library for logo upload.
+		wp_enqueue_media();
+
 		// Localize script with data.
 		wp_localize_script(
 			self::SCRIPT_HANDLE,

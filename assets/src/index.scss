@@ -100,6 +100,36 @@ $bg-light: #f0f0f1;
     }
 }
 
+// Logo upload
+.pausewp-logo-upload {
+    &__container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 8px;
+    }
+
+    &__preview {
+        max-width: 200px;
+        padding: 12px;
+        background: #f0f0f1;
+        border: 1px solid #c3c4c7;
+        border-radius: 4px;
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+    }
+
+    &__buttons {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+}
+
 // Responsive
 @media screen and (max-width: 782px) {
     .pausewp-admin {

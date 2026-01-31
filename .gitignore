@@ -1,0 +1,21 @@
+# General
+.DS_Store
+Thumbs.db
+
+# WordPress
+node_modules/
+vendor/
+.env
+
+# Mobile/OS
+.vscode/
+.idea/
+
+# Agent/AI
+.gemini/
+.agent/
+
+# User Rules: Ignore all markdown files except Readme
+*.md
+!README.md
+!readme.txt

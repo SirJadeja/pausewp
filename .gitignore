@@ -1,17 +1,39 @@
-# General
-.DS_Store
-Thumbs.db
+# ===========================================
+# PauseWP Plugin - Git Ignore
+# ===========================================
 
-# WordPress
+# ----- Dependencies -----
 node_modules/
 vendor/
-.env
 
-# Mobile/OS
+# ----- Build Artifacts -----
+assets/build/
+
+# ----- Environment & Secrets -----
+.env
+.env.local
+.env.*.local
+
+# ----- OS Generated -----
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ----- IDE & Editors -----
 .vscode/
 .idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
 
-# Agent/AI
+# ----- Agent/AI Tools -----
 .gemini/
 .agent/
 
@@ -19,3 +41,28 @@ vendor/
 *.md
 !README.md
 !readme.txt
+
+# ----- Logs & Debug -----
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+debug.log
+
+
+# ----- PHP Specific -----
+composer.lock
+*.phar
+
+# ----- Testing -----
+.phpunit.result.cache
+coverage/
+
+# ----- Temporary Files -----
+*.tmp
+*.temp
+*.bak
+
+# ----- WordPress Specific -----
+# Uncomment below if you don't want to track readme.txt
+# readme.txt

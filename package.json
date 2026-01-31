@@ -1,0 +1,26 @@
+{
+    "name": "pausewp",
+    "version": "1.0.0",
+    "description": "Dev-First Lean Maintenance Mode Plugin for WordPress",
+    "author": "PauseWP Team",
+    "license": "GPL-2.0-or-later",
+    "main": "assets/build/index.js",
+    "scripts": {
+        "start": "wp-scripts start --webpack-src-dir=assets/src --output-path=assets/build",
+        "build": "wp-scripts build --webpack-src-dir=assets/src --output-path=assets/build",
+        "lint:js": "wp-scripts lint-js assets/src",
+        "lint:js:fix": "wp-scripts lint-js assets/src --fix",
+        "lint:css": "wp-scripts lint-style assets/src",
+        "lint:css:fix": "wp-scripts lint-style assets/src --fix",
+        "packages-update": "wp-scripts packages-update"
+    },
+    "devDependencies": {
+        "@wordpress/scripts": "^28.0.0"
+    },
+    "dependencies": {
+        "@wordpress/api-fetch": "^7.0.0",
+        "@wordpress/components": "^28.0.0",
+        "@wordpress/element": "^6.0.0",
+        "@wordpress/i18n": "^5.0.0"
+    }
+}

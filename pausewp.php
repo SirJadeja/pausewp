@@ -37,6 +37,16 @@ if ( file_exists( PAUSEWP_PATH . 'vendor/autoload.php' ) ) {
 }
 
 /**
+ * Plugin activation hook.
+ */
+register_activation_hook( __FILE__, [ \PauseWP\Core\Activator::class, 'activate' ] );
+
+/**
+ * Plugin deactivation hook.
+ */
+register_deactivation_hook( __FILE__, [ \PauseWP\Core\Deactivator::class, 'deactivate' ] );
+
+/**
  * Initialize the plugin on plugins_loaded.
  *
  * @return void

@@ -38,8 +38,13 @@ final class Engine {
 			return;
 		}
 
-		// For now, just die with a simple message.
-		// This will be replaced with proper template rendering in Task 6.
+		// Check if user can bypass maintenance mode.
+		$access_control = new Access_Control();
+		if ( $access_control->can_access() ) {
+			return;
+		}
+
+		// Block access and show maintenance page.
 		$this->render_maintenance_page();
 	}
 

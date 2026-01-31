@@ -84,9 +84,21 @@ final class Plugin {
 		$engine = new \PauseWP\Frontend\Engine();
 		add_action( 'template_redirect', [ $engine, 'handle_request' ], 1 );
 
+		// REST API: Register settings endpoints.
+		add_action( 'rest_api_init', [ $this, 'register_rest_routes' ] );
+
 		// Future hooks:
 		// - admin_menu (Settings Page)
-		// - rest_api_init (Settings API)
+	}
+
+	/**
+	 * Register REST API routes.
+	 *
+	 * @return void
+	 */
+	public function register_rest_routes(): void {
+		$settings_controller = new \PauseWP\Api\Settings_Controller();
+		$settings_controller->register_routes();
 	}
 
 	/**

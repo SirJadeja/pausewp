@@ -87,8 +87,11 @@ final class Plugin {
 		// REST API: Register settings endpoints.
 		add_action( 'rest_api_init', [ $this, 'register_rest_routes' ] );
 
-		// Future hooks:
-		// - admin_menu (Settings Page)
+		// Admin: Register settings page.
+		if ( is_admin() ) {
+			$settings_page = new \PauseWP\Admin\Settings_Page();
+			$settings_page->register();
+		}
 	}
 
 	/**

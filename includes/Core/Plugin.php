@@ -80,8 +80,11 @@ final class Plugin {
 	 * @return void
 	 */
 	private function init_hooks(): void {
-		// Future hooks will be registered here.
-		// - template_redirect (Frontend Engine)
+		// Frontend: Intercept requests for maintenance mode.
+		$engine = new \PauseWP\Frontend\Engine();
+		add_action( 'template_redirect', [ $engine, 'handle_request' ], 1 );
+
+		// Future hooks:
 		// - admin_menu (Settings Page)
 		// - rest_api_init (Settings API)
 	}

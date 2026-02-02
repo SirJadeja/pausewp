@@ -68,13 +68,8 @@ final class Settings_Page {
 	 */
 	public function render_page(): void {
 		?>
-		<div class="wrap">
-			<div id="pausewp-admin-app">
-				<div class="pausewp-loading">
-					<span class="spinner is-active" style="float: none; margin: 0 10px 0 0;"></span>
-					<?php esc_html_e( 'Loading...', 'pausewp' ); ?>
-				</div>
-			</div>
+		<div class="wrap pausewp-wrap">
+			<div id="pausewp-admin-app"></div>
 		</div>
 		<?php
 	}

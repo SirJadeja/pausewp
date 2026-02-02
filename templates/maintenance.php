@@ -41,13 +41,19 @@ if ( ! empty( $logo_id ) ) {
 	<?php endif; ?>
 	<title><?php echo esc_html( $seo_title ); ?></title>
 	<style>
-		/* Reset & Base */
+		/* ========================================
+		   Modern Clean Maintenance Page
+		   Neutral Colors | Pure CSS | No 3rd Party
+		   ======================================== */
+
+		/* Reset */
 		*, *::before, *::after {
 			box-sizing: border-box;
 			margin: 0;
 			padding: 0;
 		}
 
+		/* Base */
 		html {
 			font-size: 16px;
 			-webkit-font-smoothing: antialiased;
@@ -55,29 +61,29 @@ if ( ! empty( $logo_id ) ) {
 		}
 
 		body {
-			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-			background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
-			color: #e4e4e7;
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+			background-color: #fafafa;
+			color: #333;
 			min-height: 100vh;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			padding: 2rem;
+			padding: 24px;
 			line-height: 1.6;
 		}
 
-		/* Container */
-		.pausewp-maintenance {
-			max-width: 600px;
+		/* Main Container */
+		.pausewp-container {
+			max-width: 480px;
 			width: 100%;
 			text-align: center;
-			animation: fadeIn 0.6s ease-out;
+			animation: fadeUp 0.5s ease-out;
 		}
 
-		@keyframes fadeIn {
+		@keyframes fadeUp {
 			from {
 				opacity: 0;
-				transform: translateY(20px);
+				transform: translateY(16px);
 			}
 			to {
 				opacity: 1;
@@ -85,95 +91,131 @@ if ( ! empty( $logo_id ) ) {
 			}
 		}
 
+		/* Card */
+		.pausewp-card {
+			background: #fff;
+			border-radius: 12px;
+			padding: 48px 32px;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 
+			            0 4px 12px rgba(0, 0, 0, 0.04);
+		}
+
+		/* Icon */
+		.pausewp-icon {
+			width: 64px;
+			height: 64px;
+			margin: 0 auto 24px;
+			background: #f5f5f5;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.pausewp-icon svg {
+			width: 28px;
+			height: 28px;
+			color: #666;
+		}
+
 		/* Logo */
 		.pausewp-logo {
-			margin-bottom: 2rem;
+			margin-bottom: 24px;
 		}
 
 		.pausewp-logo img {
-			max-width: 180px;
-			max-height: 80px;
+			max-width: 160px;
+			max-height: 60px;
 			width: auto;
 			height: auto;
-			filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
 		}
 
 		/* Heading */
 		.pausewp-heading {
-			font-size: clamp(1.75rem, 5vw, 2.5rem);
-			font-weight: 700;
-			color: #ffffff;
-			margin-bottom: 1rem;
-			letter-spacing: -0.02em;
+			font-size: 1.5rem;
+			font-weight: 600;
+			color: #111;
+			margin-bottom: 12px;
+			letter-spacing: -0.01em;
 		}
 
 		/* Subheading */
 		.pausewp-subheading {
-			font-size: 1.125rem;
-			color: #a1a1aa;
-			margin-bottom: 2rem;
-			max-width: 480px;
-			margin-left: auto;
-			margin-right: auto;
+			font-size: 0.9375rem;
+			color: #666;
+			margin-bottom: 0;
+			line-height: 1.7;
 		}
 
 		.pausewp-subheading a {
-			color: #60a5fa;
-			text-decoration: none;
-			transition: color 0.2s ease;
+			color: #333;
+			text-decoration: underline;
+			text-underline-offset: 2px;
 		}
 
 		.pausewp-subheading a:hover {
-			color: #93c5fd;
-			text-decoration: underline;
+			color: #000;
 		}
 
 		/* CTA Buttons */
 		.pausewp-buttons {
 			display: flex;
 			flex-wrap: wrap;
-			gap: 1rem;
+			gap: 12px;
 			justify-content: center;
-			margin-top: 1.5rem;
+			margin-top: 28px;
+			padding-top: 28px;
+			border-top: 1px solid #eee;
 		}
 
 		.pausewp-btn {
 			display: inline-flex;
 			align-items: center;
-			gap: 0.5rem;
-			padding: 0.75rem 1.5rem;
-			background: rgba(255, 255, 255, 0.1);
-			border: 1px solid rgba(255, 255, 255, 0.2);
-			border-radius: 8px;
-			color: #ffffff;
+			gap: 6px;
+			padding: 10px 20px;
+			background: #111;
+			border-radius: 6px;
+			color: #fff;
 			text-decoration: none;
-			font-size: 0.9375rem;
+			font-size: 0.875rem;
 			font-weight: 500;
-			transition: all 0.2s ease;
-			backdrop-filter: blur(4px);
+			transition: background-color 0.15s ease, transform 0.15s ease;
 		}
 
 		.pausewp-btn:hover {
-			background: rgba(255, 255, 255, 0.15);
-			border-color: rgba(255, 255, 255, 0.3);
-			transform: translateY(-2px);
+			background: #333;
+			transform: translateY(-1px);
 		}
 
 		.pausewp-btn svg {
-			width: 16px;
-			height: 16px;
-			flex-shrink: 0;
+			width: 14px;
+			height: 14px;
+			opacity: 0.7;
+		}
+
+		/* Footer */
+		.pausewp-footer {
+			margin-top: 24px;
+			font-size: 0.8125rem;
+			color: #999;
 		}
 
 		/* Responsive */
 		@media (max-width: 480px) {
 			body {
-				padding: 1.5rem;
+				padding: 16px;
+			}
+
+			.pausewp-card {
+				padding: 36px 24px;
+			}
+
+			.pausewp-heading {
+				font-size: 1.25rem;
 			}
 
 			.pausewp-buttons {
 				flex-direction: column;
-				align-items: center;
 			}
 
 			.pausewp-btn {
@@ -184,42 +226,54 @@ if ( ! empty( $logo_id ) ) {
 	</style>
 </head>
 <body>
-	<main class="pausewp-maintenance" role="main">
-		<?php if ( ! empty( $logo_url ) ) : ?>
-			<div class="pausewp-logo">
-				<img 
-					src="<?php echo esc_url( $logo_url ); ?>" 
-					alt="<?php echo esc_attr( $logo_alt ?: get_bloginfo( 'name' ) ); ?>"
-				>
-			</div>
-		<?php endif; ?>
+	<main class="pausewp-container" role="main">
+		<div class="pausewp-card">
+			<?php if ( ! empty( $logo_url ) ) : ?>
+				<div class="pausewp-logo">
+					<img 
+						src="<?php echo esc_url( $logo_url ); ?>" 
+						alt="<?php echo esc_attr( $logo_alt ?: get_bloginfo( 'name' ) ); ?>"
+					>
+				</div>
+			<?php else : ?>
+				<!-- Default Icon when no logo -->
+				<div class="pausewp-icon">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
+					</svg>
+				</div>
+			<?php endif; ?>
 
-		<h1 class="pausewp-heading"><?php echo esc_html( $heading ); ?></h1>
+			<h1 class="pausewp-heading"><?php echo esc_html( $heading ); ?></h1>
 
-		<div class="pausewp-subheading">
-			<?php echo wp_kses_post( $subheading ); ?>
+			<p class="pausewp-subheading">
+				<?php echo wp_kses_post( $subheading ); ?>
+			</p>
+
+			<?php if ( ! empty( $cta_buttons ) && is_array( $cta_buttons ) ) : ?>
+				<div class="pausewp-buttons">
+					<?php foreach ( $cta_buttons as $button ) : ?>
+						<?php if ( ! empty( $button['label'] ) && ! empty( $button['url'] ) ) : ?>
+							<a 
+								href="<?php echo esc_url( $button['url'] ); ?>" 
+								class="pausewp-btn"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<?php echo esc_html( $button['label'] ); ?>
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+								</svg>
+							</a>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				</div>
+			<?php endif; ?>
 		</div>
 
-		<?php if ( ! empty( $cta_buttons ) && is_array( $cta_buttons ) ) : ?>
-			<div class="pausewp-buttons">
-				<?php foreach ( $cta_buttons as $button ) : ?>
-					<?php if ( ! empty( $button['label'] ) && ! empty( $button['url'] ) ) : ?>
-						<a 
-							href="<?php echo esc_url( $button['url'] ); ?>" 
-							class="pausewp-btn"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<?php echo esc_html( $button['label'] ); ?>
-							<!-- Arrow Icon (Inline SVG) -->
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-							</svg>
-						</a>
-					<?php endif; ?>
-				<?php endforeach; ?>
-			</div>
-		<?php endif; ?>
+		<p class="pausewp-footer">
+			<?php echo esc_html( get_bloginfo( 'name' ) ); ?>
+		</p>
 	</main>
 </body>
 </html>

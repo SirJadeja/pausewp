@@ -12,8 +12,11 @@ $border-color: #c3c4c7;
 $bg-light: #f0f0f1;
 
 // Admin wrapper
+.pausewp-wrap {
+    max-width: 1200px;
+}
+
 .pausewp-admin {
-    max-width: 800px;
     margin: 20px 0;
 
     // Header
@@ -33,6 +36,29 @@ $bg-light: #f0f0f1;
         color: #646970;
         font-size: 13px;
         margin: 0;
+    }
+
+    &__help-text {
+        color: #646970;
+        font-size: 13px;
+        margin: 0 0 16px;
+    }
+
+    // Two-column layout
+    &__layout {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 24px;
+        align-items: start;
+    }
+
+    &__main {
+        min-width: 0;
+    }
+
+    &__sidebar {
+        position: sticky;
+        top: 32px;
     }
 
     // Cards
@@ -59,29 +85,18 @@ $bg-light: #f0f0f1;
                 }
             }
         }
-    }
 
-    // Actions bar
-    &__actions {
-        display: flex;
-        gap: 12px;
-        margin-top: 24px;
-        padding-top: 24px;
-        border-top: 1px solid $border-color;
+        &--sticky {
+            position: sticky;
+            top: 32px;
+        }
     }
 }
 
-// Loading state
-.pausewp-loading {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 20px;
-    color: #646970;
-
-    .components-spinner {
-        margin: 0;
-    }
+// Save button
+.pausewp-save-btn {
+    width: 100%;
+    justify-content: center;
 }
 
 // Notice adjustments
@@ -130,7 +145,98 @@ $bg-light: #f0f0f1;
     }
 }
 
+// CTA Buttons Repeater
+.pausewp-cta-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 12px;
+    align-items: end;
+    padding: 16px;
+    margin-bottom: 12px;
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+
+    .components-base-control {
+        margin-bottom: 0;
+    }
+}
+
+.pausewp-cta-add {
+    margin-top: 8px;
+}
+
+.pausewp-cta-remove {
+    margin-bottom: 8px;
+}
+
+// Skeleton Loading
+.pausewp-skeleton {
+    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+
+    &--title {
+        height: 28px;
+        width: 300px;
+        margin-bottom: 8px;
+    }
+
+    &--text {
+        height: 16px;
+        width: 400px;
+    }
+
+    &--heading {
+        height: 18px;
+        width: 150px;
+    }
+
+    &--toggle {
+        height: 36px;
+        width: 100%;
+    }
+
+    &--input {
+        height: 56px;
+        width: 100%;
+        margin-bottom: 16px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &--textarea {
+        height: 100px;
+        width: 100%;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
 // Responsive
+@media screen and (max-width: 960px) {
+    .pausewp-admin {
+        &__layout {
+            grid-template-columns: 1fr;
+        }
+
+        &__sidebar {
+            position: static;
+        }
+    }
+}
+
 @media screen and (max-width: 782px) {
     .pausewp-admin {
         margin: 10px 0;
@@ -138,14 +244,20 @@ $bg-light: #f0f0f1;
         &__header h1 {
             font-size: 20px;
         }
+    }
 
-        &__actions {
-            flex-direction: column;
+    .pausewp-cta-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
 
-            .components-button {
-                width: 100%;
-                justify-content: center;
-            }
+    .pausewp-skeleton {
+        &--title {
+            width: 200px;
+        }
+
+        &--text {
+            width: 100%;
         }
     }
 }

@@ -33,14 +33,6 @@ desktop.ini
 *.swo
 *~
 
-# ----- Agent/AI Tools -----
-.gemini/
-.agent/
-
-# User Rules: Ignore all markdown files except Readme
-*.md
-!README.md
-!readme.txt
 
 # ----- Logs & Debug -----
 *.log
@@ -66,3 +58,7 @@ coverage/
 # ----- WordPress Specific -----
 # Uncomment below if you don't want to track readme.txt
 # readme.txt
+
+# ----- Dev Documentation -----
+Documentation.md
+error-history.md

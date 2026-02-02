@@ -69,7 +69,7 @@ const App = () => {
                 setLogoPreview(media.source_url);
             }
         } catch (error) {
-            console.error('Failed to fetch logo:', error);
+            // Silent fail - logo preview is non-critical
         }
     };
 
@@ -95,7 +95,7 @@ const App = () => {
     const openMediaFrame = () => {
         // Check if wp.media exists
         if (typeof wp === 'undefined' || !wp.media) {
-            console.error('WordPress media library not available');
+            // Media library not available - button will be non-functional
             return;
         }
 

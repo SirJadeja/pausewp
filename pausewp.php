@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:       WP Pause
+ * Plugin Name:       WP Pause - Maintenance & Coming Soon
  * Plugin URI:        https://example.com/pausewp
- * Description:       Dev-First Lean Maintenance Mode Plugin. Zero-JS frontend, proper 503 headers, developer-friendly.
+ * Description:       Lightweight Maintenance Mode & Coming Soon page. Zero-JS frontend, countdown timer, proper 503 headers, developer-friendly.
  * Version:           1.0.0
  * Requires at least: 6.4
  * Requires PHP:      8.1

@@ -250,6 +250,20 @@ final class Settings_Controller extends WP_REST_Controller {
 			);
 		}
 
+		// Boolean: countdown_enabled.
+		if ( isset( $input['countdown_enabled'] ) ) {
+			$sanitized['countdown_enabled'] = (bool) $input['countdown_enabled'];
+		}
+
+		// Datetime: countdown_datetime (ISO 8601 format).
+		if ( isset( $input['countdown_datetime'] ) ) {
+			$datetime = sanitize_text_field( $input['countdown_datetime'] );
+			// Validate datetime format (YYYY-MM-DDTHH:MM).
+			if ( preg_match( '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/', $datetime ) || empty( $datetime ) ) {
+				$sanitized['countdown_datetime'] = $datetime;
+			}
+		}
+
 		return $sanitized;
 	}
 

@@ -26,16 +26,18 @@ final class Activator {
 	 * @var array<string, mixed>
 	 */
 	private const DEFAULTS = [
-		'is_enabled'       => false,
-		'heading'          => 'We\'ll Be Right Back',
-		'subheading'       => 'Our site is currently undergoing scheduled maintenance. Please check back soon.',
-		'logo_id'          => 0,
-		'logo_alt'         => '',
-		'seo_title'        => 'Site Under Maintenance',
-		'meta_description' => 'We are currently performing scheduled maintenance. We will be back online shortly.',
-		'bypass_roles'     => [ 'administrator' ],
-		'whitelisted_ips'  => [],
-		'cta_buttons'      => [],
+		'is_enabled'         => false,
+		'heading'            => 'We\'ll Be Right Back',
+		'subheading'         => 'Our site is currently undergoing scheduled maintenance. Please check back soon.',
+		'logo_id'            => 0,
+		'logo_alt'           => '',
+		'seo_title'          => 'Site Under Maintenance',
+		'meta_description'   => 'We are currently performing scheduled maintenance. We will be back online shortly.',
+		'bypass_roles'       => [ 'administrator' ],
+		'whitelisted_ips'    => [],
+		'cta_buttons'        => [],
+		'countdown_enabled'  => false,
+		'countdown_datetime' => '',
 	];
 
 	/**

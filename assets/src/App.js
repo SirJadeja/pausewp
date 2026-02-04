@@ -207,9 +207,9 @@ const App = () => {
     return (
         <div className="pausewp-admin">
             <div className="pausewp-admin__header">
-                <h1>{__('WP Pause - Maintenance Mode', 'pausewp')}</h1>
+                <h1>{__('WP Pause - Maintenance & Coming Soon', 'pausewp')}</h1>
                 <p className="pausewp-admin__description">
-                    {__('Configure your maintenance mode settings below.', 'pausewp')}
+                    {__('Configure your maintenance mode or coming soon page settings.', 'pausewp')}
                 </p>
             </div>
 
@@ -365,6 +365,38 @@ const App = () => {
 
                 {/* Sidebar */}
                 <div className="pausewp-admin__sidebar">
+                    <Card className="pausewp-admin__card">
+                        <CardHeader>
+                            <h2>{__('Countdown Timer', 'pausewp')}</h2>
+                        </CardHeader>
+                        <CardBody>
+                            <ToggleControl
+                                label={__('Show Countdown', 'pausewp')}
+                                help={
+                                    settings.countdown_enabled
+                                        ? __('Countdown timer is visible on the page.', 'pausewp')
+                                        : __('No countdown displayed.', 'pausewp')
+                                }
+                                checked={settings.countdown_enabled || false}
+                                onChange={(value) => updateSetting('countdown_enabled', value)}
+                            />
+
+                            {settings.countdown_enabled && (
+                                <>
+                                    <TextControl
+                                        label={__('Target Date & Time', 'pausewp')}
+                                        type="datetime-local"
+                                        value={settings.countdown_datetime || ''}
+                                        onChange={(value) => updateSetting('countdown_datetime', value)}
+                                    />
+                                    <p className="pausewp-admin__help-text">
+                                        {__('Uses WordPress timezone setting.', 'pausewp')}
+                                    </p>
+                                </>
+                            )}
+                        </CardBody>
+                    </Card>
+
                     <Card className="pausewp-admin__card">
                         <CardHeader>
                             <h2>{__('SEO Settings', 'pausewp')}</h2>

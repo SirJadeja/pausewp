@@ -15,13 +15,25 @@ declare(strict_types=1);
 defined( 'ABSPATH' ) || exit;
 
 // Extract settings with defaults.
-$heading          = $settings['heading'] ?? __( 'We\'ll Be Right Back', 'pausewp' );
-$subheading       = $settings['subheading'] ?? __( 'Our site is currently undergoing scheduled maintenance.', 'pausewp' );
-$logo_id          = $settings['logo_id'] ?? 0;
-$logo_alt         = $settings['logo_alt'] ?? '';
-$seo_title        = $settings['seo_title'] ?? __( 'Site Under Maintenance', 'pausewp' );
-$meta_description = $settings['meta_description'] ?? '';
-$cta_buttons      = $settings['cta_buttons'] ?? [];
+$heading            = $settings['heading'] ?? __( 'We\'ll Be Right Back', 'pausewp' );
+$subheading         = $settings['subheading'] ?? __( 'Our site is currently undergoing scheduled maintenance.', 'pausewp' );
+$logo_id            = $settings['logo_id'] ?? 0;
+$logo_alt           = $settings['logo_alt'] ?? '';
+$seo_title          = $settings['seo_title'] ?? __( 'Site Under Maintenance', 'pausewp' );
+$meta_description   = $settings['meta_description'] ?? '';
+$cta_buttons        = $settings['cta_buttons'] ?? [];
+$countdown_enabled  = $settings['countdown_enabled'] ?? false;
+$countdown_datetime = $settings['countdown_datetime'] ?? '';
+
+// Convert countdown datetime to timestamp using WordPress timezone.
+$countdown_timestamp = 0;
+if ( $countdown_enabled && ! empty( $countdown_datetime ) ) {
+	$wp_timezone         = wp_timezone();
+	$countdown_date      = \DateTime::createFromFormat( 'Y-m-d\TH:i', $countdown_datetime, $wp_timezone );
+	if ( $countdown_date ) {
+		$countdown_timestamp = $countdown_date->getTimestamp() * 1000; // Convert to milliseconds for JS.
+	}
+}
 
 // Get logo URL if set.
 $logo_url = '';
@@ -157,6 +169,42 @@ if ( ! empty( $logo_id ) ) {
 			color: #000;
 		}
 
+		/* Countdown Timer */
+		.pausewp-countdown {
+			display: flex;
+			justify-content: center;
+			gap: 16px;
+			margin-top: 24px;
+			padding-top: 24px;
+			border-top: 1px solid #eee;
+		}
+
+		.pausewp-countdown__item {
+			text-align: center;
+			min-width: 60px;
+		}
+
+		.pausewp-countdown__value {
+			display: block;
+			font-size: 2rem;
+			font-weight: 600;
+			color: #111;
+			line-height: 1.2;
+		}
+
+		.pausewp-countdown__label {
+			display: block;
+			font-size: 0.75rem;
+			color: #666;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+			margin-top: 4px;
+		}
+
+		.pausewp-countdown--expired {
+			display: none;
+		}
+
 		/* CTA Buttons */
 		.pausewp-buttons {
 			display: flex;
@@ -250,6 +298,27 @@ if ( ! empty( $logo_id ) ) {
 				<?php echo wp_kses_post( $subheading ); ?>
 			</p>
 
+			<?php if ( $countdown_enabled && $countdown_timestamp > 0 ) : ?>
+				<div id="pausewp-countdown" class="pausewp-countdown" data-target="<?php echo esc_attr( $countdown_timestamp ); ?>">
+					<div class="pausewp-countdown__item">
+						<span class="pausewp-countdown__value" id="countdown-days">00</span>
+						<span class="pausewp-countdown__label"><?php esc_html_e( 'Days', 'pausewp' ); ?></span>
+					</div>
+					<div class="pausewp-countdown__item">
+						<span class="pausewp-countdown__value" id="countdown-hours">00</span>
+						<span class="pausewp-countdown__label"><?php esc_html_e( 'Hours', 'pausewp' ); ?></span>
+					</div>
+					<div class="pausewp-countdown__item">
+						<span class="pausewp-countdown__value" id="countdown-minutes">00</span>
+						<span class="pausewp-countdown__label"><?php esc_html_e( 'Minutes', 'pausewp' ); ?></span>
+					</div>
+					<div class="pausewp-countdown__item">
+						<span class="pausewp-countdown__value" id="countdown-seconds">00</span>
+						<span class="pausewp-countdown__label"><?php esc_html_e( 'Seconds', 'pausewp' ); ?></span>
+					</div>
+				</div>
+			<?php endif; ?>
+
 			<?php if ( ! empty( $cta_buttons ) && is_array( $cta_buttons ) ) : ?>
 				<div class="pausewp-buttons">
 					<?php foreach ( $cta_buttons as $button ) : ?>
@@ -275,5 +344,47 @@ if ( ! empty( $logo_id ) ) {
 			<?php echo esc_html( get_bloginfo( 'name' ) ); ?>
 		</p>
 	</main>
+
+	<?php if ( $countdown_enabled && $countdown_timestamp > 0 ) : ?>
+	<script>
+	(function() {
+		var countdown = document.getElementById('pausewp-countdown');
+		if (!countdown) return;
+
+		var target = parseInt(countdown.getAttribute('data-target'), 10);
+		var days = document.getElementById('countdown-days');
+		var hours = document.getElementById('countdown-hours');
+		var minutes = document.getElementById('countdown-minutes');
+		var seconds = document.getElementById('countdown-seconds');
+
+		function pad(n) {
+			return n < 10 ? '0' + n : n;
+		}
+
+		function update() {
+			var now = Date.now();
+			var diff = target - now;
+
+			if (diff <= 0) {
+				countdown.classList.add('pausewp-countdown--expired');
+				return;
+			}
+
+			var d = Math.floor(diff / (1000 * 60 * 60 * 24));
+			var h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			var m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+			var s = Math.floor((diff % (1000 * 60)) / 1000);
+
+			days.textContent = pad(d);
+			hours.textContent = pad(h);
+			minutes.textContent = pad(m);
+			seconds.textContent = pad(s);
+		}
+
+		update();
+		setInterval(update, 1000);
+	})();
+	</script>
+	<?php endif; ?>
 </body>
 </html>

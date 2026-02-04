@@ -6,9 +6,16 @@ Put your site in maintenance mode with a beautiful, fast-loading page. Perfect f
 
 ![WordPress Version](https://img.shields.io/badge/WordPress-6.4%2B-blue)
 ![PHP Version](https://img.shields.io/badge/PHP-8.1%2B-purple)
-![License](https://img.shields.io/badge/License-GPL--2.0-green)
+<!-- licenece is MIT licence -->
+![License](https://img.shields.io/badge/License-MIT-green)
 
 ---
+
+<!-- screenshots -->
+## Screenshots
+
+![Frontend](screenshots/screenshot-backend.png)
+![Backend](screenshots/screenshot-frontend.png)
 
 ## ✨ Features
 
@@ -192,7 +199,7 @@ Put your site in maintenance mode with a beautiful, fast-loading page. Perfect f
 
 ## 📄 License
 
-This plugin is licensed under the [GPL-2.0-or-later](https://www.gnu.org/licenses/gpl-2.0.html).
+This plugin is licensed under the [MIT](https://opensource.org/licenses/MIT).
 
 ---
 

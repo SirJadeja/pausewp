@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name:       WP Pause - Maintenance & Coming Soon
- * Plugin URI:        https://example.com/pausewp
+ * Plugin URI:        https://github.com/sirjadeja/pausewp
  * Description:       Lightweight Maintenance Mode & Coming Soon page. Zero-JS frontend, countdown timer, proper 503 headers, developer-friendly.
  * Version:           1.0.0
  * Requires at least: 6.4
  * Requires PHP:      8.1
  * Author:            PauseWP Team
- * Author URI:        https://example.com
+ * Author URI:        https://github.com/sirjadeja
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       pausewp

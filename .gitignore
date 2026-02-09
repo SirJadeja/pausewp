@@ -7,7 +7,7 @@ node_modules/
 vendor/
 
 # ----- Build Artifacts -----
-assets/build/
+# NOTE: assets/build/ is NOT ignored - must be included for plug-and-play installation
 
 # ----- Environment & Secrets -----
 .env
@@ -58,7 +58,3 @@ coverage/
 # ----- WordPress Specific -----
 # Uncomment below if you don't want to track readme.txt
 # readme.txt
-
-# ----- Dev Documentation -----
-Documentation.md
-error-history.md

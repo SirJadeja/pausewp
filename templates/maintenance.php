@@ -356,7 +356,6 @@ if ( ! empty( $logo_id ) ) {
 		var hours = document.getElementById('countdown-hours');
 		var minutes = document.getElementById('countdown-minutes');
 		var seconds = document.getElementById('countdown-seconds');
-		var hasReloaded = sessionStorage.getItem('pausewp_reloaded');
 
 		function pad(n) {
 			return n < 10 ? '0' + n : n;
@@ -368,13 +367,10 @@ if ( ! empty( $logo_id ) ) {
 
 			if (diff <= 0) {
 				countdown.classList.add('pausewp-countdown--expired');
-				// Reload page once to show live site (prevent infinite loop)
-				if (!hasReloaded) {
-					sessionStorage.setItem('pausewp_reloaded', '1');
-					setTimeout(function() {
-						window.location.reload();
-					}, 2000);
-				}
+				days.textContent = '00';
+				hours.textContent = '00';
+				minutes.textContent = '00';
+				seconds.textContent = '00';
 				return;
 			}
 
@@ -391,31 +387,6 @@ if ( ! empty( $logo_id ) ) {
 
 		update();
 		setInterval(update, 1000);
-	})();
-	</script>
-	<?php endif; ?>
-
-	<?php
-	// Auto-refresh when countdown is hidden but target time is set (silent mode)
-	if ( ! $countdown_enabled && $countdown_timestamp > 0 ) :
-		?>
-		<script>
-	(function() {
-		var target = <?php echo esc_js( $countdown_timestamp ); ?>;
-		var hasReloaded = sessionStorage.getItem('pausewp_reloaded');
-		
-		function checkTime() {
-			var now = Date.now();
-			if (now >= target && !hasReloaded) {
-				sessionStorage.setItem('pausewp_reloaded', '1');
-				setTimeout(function() {
-					window.location.reload();
-				}, 2000);
-			}
-		}
-		
-		// Check every 5 seconds
-		setInterval(checkTime, 5000);
 	})();
 	</script>
 	<?php endif; ?>

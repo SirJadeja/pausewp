@@ -24,7 +24,7 @@ Put your site in maintenance mode with a beautiful, fast-loading page. Perfect f
 - **Beautiful Design** – Modern, clean, neutral-colored maintenance page
 - **Coming Soon Mode** – Use the same page for pre-launch announcements
 - **Countdown Timer** – Optional countdown with Days, Hours, Minutes, Seconds
-- **Auto-Disable** – Automatically go live at countdown end (auto-refreshes visitor browsers)
+- **Auto-Disable** – Automatically go live at target time (uses WordPress timezone)
 - **Custom Branding** – Upload your logo with alt text for accessibility
 - **Custom Content** – Editable heading and description (supports basic HTML)
 - **CTA Buttons** – Add unlimited call-to-action buttons (Contact, Social links, etc.)
@@ -177,9 +177,6 @@ Put your site in maintenance mode with a beautiful, fast-loading page. Perfect f
 > No. The countdown timer is optional. Auto Turn Off works independently. You can:
 > - Set target time WITHOUT showing countdown = Silent auto-launch
 > - Set target time WITH countdown = Visitors see countdown + auto-launch
-
-**Q: What happens to visitors on the page when the site goes live?**
-> Their browser automatically refreshes within 1-5 seconds of the target time. They'll immediately see your live site without manually refreshing.
 
 
 ---

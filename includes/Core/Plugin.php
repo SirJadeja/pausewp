@@ -84,6 +84,10 @@ final class Plugin {
 		$engine = new \PauseWP\Frontend\Engine();
 		add_action( 'template_redirect', [ $engine, 'handle_request' ], 1 );
 
+		// Frontend: Auto-disable handler.
+		$auto_disable = new \PauseWP\Frontend\Auto_Disable();
+		$auto_disable->init();
+
 		// REST API: Register settings endpoints.
 		add_action( 'rest_api_init', [ $this, 'register_rest_routes' ] );
 

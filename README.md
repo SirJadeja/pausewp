@@ -24,6 +24,7 @@ Put your site in maintenance mode with a beautiful, fast-loading page. Perfect f
 - **Beautiful Design** – Modern, clean, neutral-colored maintenance page
 - **Coming Soon Mode** – Use the same page for pre-launch announcements
 - **Countdown Timer** – Optional countdown with Days, Hours, Minutes, Seconds
+- **Auto-Disable** – Automatically go live at countdown end (auto-refreshes visitor browsers)
 - **Custom Branding** – Upload your logo with alt text for accessibility
 - **Custom Content** – Editable heading and description (supports basic HTML)
 - **CTA Buttons** – Add unlimited call-to-action buttons (Contact, Social links, etc.)
@@ -100,10 +101,11 @@ Put your site in maintenance mode with a beautiful, fast-loading page. Perfect f
    - Enter Label (e.g., "Contact Us") and URL
    - Add as many buttons as needed
 
-4. **Enable Countdown** (Optional)
-   - Toggle **Show Countdown** in the sidebar
+4. **Set Auto Turn Off** (Optional)
+   - In the **Auto Turn Off** sidebar section
    - Select your **Target Date & Time**
-   - The countdown uses your WordPress timezone
+   - Site will automatically go live at this time (uses WordPress timezone)
+   - **Optional:** Toggle **Show countdown on page** to display countdown timer to visitors
 
 5. **Configure SEO**
    - Set the **Page Title** (browser tab)
@@ -163,13 +165,21 @@ Put your site in maintenance mode with a beautiful, fast-loading page. Perfect f
 **Q: Does it work with page caching plugins?**
 > Yes. WP Pause sends proper cache-control headers to prevent caching of the maintenance page.
 
-### Countdown Timer
+### Auto Turn Off
 
-**Q: What timezone does the countdown use?**
-> The countdown uses your WordPress timezone setting (Settings → General → Timezone).
+**Q: What timezone is used for Auto Turn Off?**
+> Auto Turn Off uses your WordPress timezone setting (Settings → General → Timezone).
 
-**Q: What happens when the countdown reaches zero?**
-> The countdown timer simply hides. Maintenance mode remains active until you manually disable it.
+**Q: Will my site automatically go live at the target time?**
+> Yes! When you set a Target Date & Time in the "Auto Turn Off" section, WordPress Cron will automatically disable maintenance mode at that exact time.
+
+**Q: Do I have to show the countdown timer?**
+> No. The countdown timer is optional. Auto Turn Off works independently. You can:
+> - Set target time WITHOUT showing countdown = Silent auto-launch
+> - Set target time WITH countdown = Visitors see countdown + auto-launch
+
+**Q: What happens to visitors on the page when the site goes live?**
+> Their browser automatically refreshes within 1-5 seconds of the target time. They'll immediately see your live site without manually refreshing.
 
 
 ---
@@ -189,6 +199,7 @@ Put your site in maintenance mode with a beautiful, fast-loading page. Perfect f
 - Logo upload with alt text
 - CTA buttons (unlimited)
 - Countdown timer
+- Auto-disable at countdown end (scheduled with WP Cron)
 - SEO settings (title, meta description)
 - Admin bypass (logged-in admins see live site)
 - Proper HTTP 503 + Retry-After headers

@@ -250,6 +250,7 @@ final class Settings_Controller extends WP_REST_Controller {
 			);
 		}
 
+
 		// Boolean: countdown_enabled.
 		if ( isset( $input['countdown_enabled'] ) ) {
 			$sanitized['countdown_enabled'] = (bool) $input['countdown_enabled'];
@@ -264,7 +265,46 @@ final class Settings_Controller extends WP_REST_Controller {
 			}
 		}
 
+		// Boolean: auto_disable_enabled.
+		if ( isset( $input['auto_disable_enabled'] ) ) {
+			$sanitized['auto_disable_enabled'] = (bool) $input['auto_disable_enabled'];
+		}
+
+		// Schedule auto-disable cron event if enabled.
+		$this->schedule_auto_disable( $sanitized );
+
 		return $sanitized;
+	}
+
+	/**
+	 * Schedule or unschedule auto-disable event.
+	 *
+	 * @param array $settings Sanitized settings.
+	 * @return void
+	 */
+	private function schedule_auto_disable( array $settings ): void {
+		// Clear any existing scheduled event.
+		$timestamp = wp_next_scheduled( 'pausewp_auto_disable' );
+		if ( $timestamp ) {
+			wp_unschedule_event( $timestamp, 'pausewp_auto_disable' );
+		}
+
+		// Schedule new event if countdown_datetime is set.
+	if (
+		! empty( $settings['countdown_datetime'] ) &&
+		! empty( $settings['is_enabled'] )
+	) {
+		$wp_timezone    = wp_timezone();
+		$countdown_date = \DateTime::createFromFormat( 'Y-m-d\TH:i', $settings['countdown_datetime'], $wp_timezone );
+
+		if ( $countdown_date ) {
+			$target_timestamp = $countdown_date->getTimestamp();
+			// Only schedule if time is in the future.
+			if ( $target_timestamp > time() ) {
+				wp_schedule_single_event( $target_timestamp, 'pausewp_auto_disable' );
+			}
+		}
+	}
 	}
 
 	/**

@@ -367,31 +367,29 @@ const App = () => {
                 <div className="pausewp-admin__sidebar">
                     <Card className="pausewp-admin__card">
                         <CardHeader>
-                            <h2>{__('Countdown Timer', 'pausewp')}</h2>
+                            <h2>{__('Auto Turn Off', 'pausewp')}</h2>
                         </CardHeader>
                         <CardBody>
-                            <ToggleControl
-                                label={__('Show Countdown', 'pausewp')}
-                                help={
-                                    settings.countdown_enabled
-                                        ? __('Countdown timer is visible on the page.', 'pausewp')
-                                        : __('No countdown displayed.', 'pausewp')
-                                }
-                                checked={settings.countdown_enabled || false}
-                                onChange={(value) => updateSetting('countdown_enabled', value)}
+                            <TextControl
+                                label={__('Target Date & Time', 'pausewp')}
+                                type="datetime-local"
+                                value={settings.countdown_datetime || ''}
+                                onChange={(value) => updateSetting('countdown_datetime', value)}
+                                help={__('Site will automatically go live at this time. Uses WordPress timezone.', 'pausewp')}
                             />
 
-                            {settings.countdown_enabled && (
+                            {settings.countdown_datetime && (
                                 <>
-                                    <TextControl
-                                        label={__('Target Date & Time', 'pausewp')}
-                                        type="datetime-local"
-                                        value={settings.countdown_datetime || ''}
-                                        onChange={(value) => updateSetting('countdown_datetime', value)}
+                                    <ToggleControl
+                                        label={__('Show countdown on page', 'pausewp')}
+                                        help={
+                                            settings.countdown_enabled
+                                                ? __('Countdown timer is visible to visitors.', 'pausewp')
+                                                : __('Countdown hidden. Auto turn-off will still work.', 'pausewp')
+                                        }
+                                        checked={settings.countdown_enabled || false}
+                                        onChange={(value) => updateSetting('countdown_enabled', value)}
                                     />
-                                    <p className="pausewp-admin__help-text">
-                                        {__('Uses WordPress timezone setting.', 'pausewp')}
-                                    </p>
                                 </>
                             )}
                         </CardBody>
